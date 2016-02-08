@@ -5,49 +5,53 @@ pyglet.options['audio'] = ('openal', 'silent')
 
 import pyglet.media
 
-from Queue import Queue
 from threading import Thread
 
 class SongPlayer(object):
-	"""
-	"""
+    """
+    """
 
-	def __init__(self, filename, callback=None):
-		"""
-		"""
-		self.player = pyglet.media.Player()
-		self.player.queue(pyglet.media.load(filename))
-		self.callback = callback
-		self.queue = Queue()
+    def __init__(self, filename=None, song=None, callback=None):
+        """
+        """
+        self.player = pyglet.media.Player()
+        filename = filename if filename else song['filename']
+        self.source = pyglet.media.load(filename)
+        self.song = song if song else self.get_song(filename)
+        
+        self.player.queue(self.source)
 
-		t = Thread(target=self.poller, args = (self.player,))
-		t.daemon = True # TODO: ???
-		t.start()
+        if callback:
+            self.callback = callback
+            t = Thread(target=self.poller, args = (self.player, self.song))
+            t.daemon = True # TODO: ???
+            t.start()
 
-	def poller(self, player):
-		while True:
-			command = self.queue.get()
-			if command == "play":
-				while True:
-					if not self.queue.empty():
-						command = self.queue.get()
-						if command and command == "pause":
-							break
+    def poller(self, player, song):
+        while True:
+            self.callback(self.song, player.time, player.playing)
+            time.sleep(1)
 
-					time.sleep(1)
-					if self.callback:
-						self.callback(player.time)
+    def get_song(self, filename):
+        """
+        """
+        return {
+            "filename": filename,
+            "duration": self.source.duration,
+            "title": self.source.info.title,
+            "artist": self.source.info.author,
+            "album": self.source.info.album
+        }
 
-	def play(self):
-		"""
-		"""
-		self.player.play()
-		self.queue.put("play")
-		# self.playing = self.player.play()
+    def play(self):
+        """
+        """
+        self.player.play()
 
-	def pause(self):
-		"""
-		"""
-		self.player.pause()
-		self.queue.put("pause")
+
+    def pause(self):
+        """
+        """
+        self.player.pause()
+
 
