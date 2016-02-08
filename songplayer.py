@@ -1,17 +1,9 @@
-#!/usr/bin/env python
-
 import time
 import pyglet
 pyglet.options['audio'] = ('openal', 'silent')
 # pyglet.options['debug_media'] = True
 
 import pyglet.media
-
-# source = pyglet.media.load('Circles.mp3')
-
-# player = source.play()
-# time.sleep(10)
-# player.pause()
 
 from Queue import Queue
 from threading import Thread
