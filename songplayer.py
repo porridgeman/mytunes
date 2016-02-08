@@ -12,12 +12,12 @@ class SongPlayer(object):
 	"""
 	"""
 
-	def __init__(self, filename):
+	def __init__(self, filename, callback=None):
 		"""
 		"""
 		self.player = pyglet.media.Player()
 		self.player.queue(pyglet.media.load(filename))
-
+		self.callback = callback
 		self.queue = Queue()
 
 		t = Thread(target=self.poller, args = (self.player,))
@@ -35,7 +35,8 @@ class SongPlayer(object):
 							break
 
 					time.sleep(1)
-					print(player.time)
+					if self.callback:
+						self.callback(player.time)
 
 	def play(self):
 		"""
