@@ -1,0 +1,14 @@
+{
+  "name": "mytunes-ui",
+  "version": "1.0.0",
+  "description": "UI for MyTunes",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roland Mechler",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "^1.7.7"
+  }
+}
