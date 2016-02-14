@@ -16,6 +16,8 @@
     "tests"
   ],
   "dependencies": {
-    "react": "~0.13.2"
+    "react-slider": "^0.6.1",
+    "react": "^0.14.7",
+    "babel": "*"
   }
 }
