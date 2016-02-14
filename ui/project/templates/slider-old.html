@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask React Tutorial</title>
+	<script src="{{ url_for('static', filename='bower_components/react/react.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='bower_components/react/JSXTransformer.js') }}"></script>
+	<script src="{{ url_for('static', filename='bower_components/react-slider/react-slider.js') }}"></script>
+</head>
+<body>
+     <div id="mount-point"></div>
+</body>
+
+	<script type="text/jsx">
+	    /** @jsx React.DOM */
+	    var Input = React.createClass({
+	        updateLabel: function(event){
+	            this.setState({value: event.target.value});
+	        },
+	        getInitialState: function(){
+	            return {
+	                value: ''
+	            }
+	        },
+	        componentWillMount: function(){
+	            this.setState({value: this.state.value})
+	        },
+	        render: function(){
+	            return (
+	                <div className="update-label">
+	                      <input type="text" placeholder="Enter text" onChange={this.updateLabel}/>
+	                    <Label value={this.state.value}/>
+	                    <Volume />
+	                </div>
+	        )
+	    }
+	});
+
+	var Label = React.createClass({
+	    render: function(){
+	        return (
+	        <div class="my-label">
+	        <h2>{this.props.value}</h2>
+	        </div>
+	        )
+	    }
+	});
+
+
+	var Volume = React.createClass({
+
+	  displayName: 'React-Range-Slider-Demo',
+
+	  getInitialState: function() {
+	    return {}
+	  },
+
+	  afterChange: function () {
+	    console.log('after change called');
+	  },
+
+	  beforeChange: function () {
+	    console.log('before change called');
+	  },
+
+	  render: function() {
+	    return (
+	      <div>
+	        <div className='header'>
+	          <h1>React Range Slider</h1>
+	          <h4>A flexible Slider for reactjs</h4>
+	        </div>
+	        <div id='main'>
+	          <ReactSlider defaultValue={50} />
+	        </div>
+	      </div>
+	    )
+	  }
+	});
+
+
+	React.render(<Input/>, document.getElementById('mount-point'));
+
+	// React.render(<ReactSlider defaultValue={50} />, document.getElementById('mount-point'));
+
+
+	</script>
+
+</html>
+
