@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask React Tutorial</title>
+	<script src="{{ url_for('static', filename='bower_components/react/react.js') }}"></script>
+	<script src="{{ url_for('static', filename='bower_components/react/react-dom.js') }}"></script>
+	<!-- <script src="{{ url_for('static', filename='bower_components/react/JSXTransformer.js') }}"></script> -->
+	<script src="{{ url_for('static', filename='bower_components/babel/browser.js') }}"></script>
+
+</head>
+<body>
+     <div id="mount-point"></div>
+</body>
+
+	<script type="text/babel">
+
+	    var Input = React.createClass({
+	        updateLabel: function(event){
+	            this.setState({value: event.target.value});
+	        },
+	        getInitialState: function(){
+	            return {
+	                value: ''
+	            }
+	        },
+	        componentWillMount: function(){
+	            this.setState({value: this.state.value})
+	        },
+	        render: function(){
+	            return (
+	                <div className="update-label">
+	                      <input type="text" placeholder="Enter text" onChange={this.updateLabel}/>
+	                    <Label value={this.state.value}/>
+	                </div>
+	        )
+	    }
+	});
+
+	var Label = React.createClass({
+	    render: function(){
+	        return (
+	        <div className="my-label">
+	        <h2>{this.props.value}</h2>
+	        </div>
+	        )
+	    }
+	});
+
+	ReactDOM.render(<Input/>, document.getElementById('mount-point'));
+	</script>
+
+</html>
+
