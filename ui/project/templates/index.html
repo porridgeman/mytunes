@@ -69,11 +69,11 @@
 
 	<script type="text/babel">
 
-	var onChange = function (value) {
+	var onAfterChange = function (value) {
     	console.log("value: ", value);
     };
 
-	ReactDOM.render(<ReactSlider defaultValue={0} className='horizontal-slider' onChange={onChange} withBars />, document.getElementById('slider'));
+	ReactDOM.render(<ReactSlider defaultValue={0} max={354} className='horizontal-slider' onAfterChange={onAfterChange} withBars />, document.getElementById('slider'));
 
 	</script>
 
